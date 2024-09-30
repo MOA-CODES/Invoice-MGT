@@ -53,4 +53,12 @@ const User = sequelizeInstance.define('User', {
         allowNull: false,
     },
 
+});
+
+User.beforeCreate(async(user)=>{
+    const salt = await bcrypt.genSalt(10)
+    user.password = await bcrypt(user.password, salt)
 })
+
+User.
+
