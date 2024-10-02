@@ -92,6 +92,7 @@ module.exports = (sequelizeInstance, DataTypes)=>{
     
     User.associate = (models) =>{
         User.hasOne(models.Invoice, { as: 'invoice', foreignKey: 'Invoiceid'})
+        console.log(models.Invoice)
     }
 
     return User;

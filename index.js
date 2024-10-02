@@ -21,9 +21,10 @@ app.get('/', (req, res)=>{
 
 connectDB()
 
-// db.sequelizeInstance.sync().then(seedAdmin())
-
-
+db.sequelizeInstance.sync()
+    .then(()=>{
+        return seedAdmin()
+    })
 
 app.listen(PORT, ()=>{
     console.log(`listening on ${PORT}`)

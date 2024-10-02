@@ -14,7 +14,7 @@ const seedAdmin = async ()=>{
             console.log("Seeded Admin")
         }
     }catch(e){
-        console.log("error seeding admin", e)
+        console.log("error seeding admin")
     }
 }
 
