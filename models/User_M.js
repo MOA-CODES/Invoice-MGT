@@ -14,6 +14,7 @@ const User = sequelizeInstance.define('User', {
     },
     name:{
         type: DataTypes.STRING,
+        unique: true,
         allowNull: false,
     },
     email:{
@@ -26,14 +27,25 @@ const User = sequelizeInstance.define('User', {
         } 
     },
     role:{
-        type:DataTypes.ENUM('Admin','subAdmin'),
-        defaultValue:'subAdmin',
+        type:DataTypes.ENUM('Admin','Sub-Admin','Customer'),
+        defaultValue:'Customer',
         validate:{
             isIn:{
-                args:[['Admin','subAdmin']],
+                args:[['Admin','Sub-Admin','Customer']],
                 msg:'{VALUE} is not supported'
             }
         },
+    },
+    phone:{
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
+        validate: {
+            is: {
+                args: /^(\+?\d{1,4}[-.\s]?)?((\d{10})|(\d{3}[-.\s]\d{3}[-.\s]\d{4}))$/,
+                msg: 'Please provide a valid phone number'
+            }
+        }
     },
     password:{
         type: DataTypes.STRING,
@@ -52,13 +64,25 @@ const User = sequelizeInstance.define('User', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-
+    freezeTableName: true // This prevents Sequelize from pluralizing the table name
 });
+
+User.associate = (models) =>{
+    User.hasOne(models.Invoice, { as: 'invoice', foreignKey: 'Invoiceid'})
+}
 
 User.beforeCreate(async(user)=>{
     const salt = await bcrypt.genSalt(10)
     user.password = await bcrypt(user.password, salt)
 })
 
-User.
+User.prototype.comparePSW = async (userPSW,options)=>{
+    const compare = await bcrypt.compare(userPSW, this.password)
+}
 
+User.prototype.updatePSW = async ()=>{
+    const salt = await bcrypt.genSalt(9)
+    this.password = await bcrypt.hash(this.password, salt)
+}
+
+module.exports = User
