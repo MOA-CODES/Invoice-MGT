@@ -1,7 +1,9 @@
 require('dotenv').config()
 require('express-async-errors')
 
-const {connectDB, sequelizeInstance}=require('./db/conn')
+const {connectDB}=require('./db/conn')
+
+const db = require('./models')
 
 const seedAdmin = require('./utils/seedAdmin')
 
@@ -19,9 +21,9 @@ app.get('/', (req, res)=>{
 
 connectDB()
 
-sequelizeInstance.sync()
+// db.sequelizeInstance.sync().then(seedAdmin())
 
-// seedAdmin()
+
 
 app.listen(PORT, ()=>{
     console.log(`listening on ${PORT}`)
