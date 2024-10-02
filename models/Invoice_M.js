@@ -25,9 +25,9 @@ module.exports = (sequelizeInstance, DataTypes)=>{
         freezeTableName: true // This prevents Sequelize from pluralizing the table name
     })
     
-    Invoice.associate = (models) =>{
-        Invoice.belongsTo(models.User, {as: 'billTo', foreignKey: 'Userid'})
-    }
+    // Invoice.associate = (models) =>{
+    //     Invoice.belongsTo(models.User, {as: 'billTo', foreignKey: 'Userid'})
+    // }
 
     return Invoice;
 }

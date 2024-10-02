@@ -6,6 +6,10 @@ const db = {}
 db.Invoice = require('./Invoice_M')(sequelizeInstance,DataTypes)
 db.Service = require('./Service_M')(sequelizeInstance,DataTypes)
 db.User = require('./User_M')(sequelizeInstance,DataTypes)
+
+//associations
+db.Invoice.belongsTo(db.User, {as: 'billTo', foreignKey: 'Userid'})
+
 db.sequelizeInstance = sequelizeInstance
 
 module.exports=db

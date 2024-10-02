@@ -90,10 +90,9 @@ module.exports = (sequelizeInstance, DataTypes)=>{
         this.password = await bcrypt.hash(this.password, salt)
     }
     
-    User.associate = (models) =>{
-        User.hasOne(models.Invoice, { as: 'invoice', foreignKey: 'Invoiceid'})
-        console.log(models.Invoice)
-    }
+    // User.associate = (models) =>{
+    //     User.hasOne(models.Invoice, { as: 'invoice', foreignKey: 'Invoiceid'})
+    // }
 
     return User;
 }
