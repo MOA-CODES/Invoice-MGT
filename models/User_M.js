@@ -53,21 +53,6 @@ module.exports = (sequelizeInstance, DataTypes)=>{
                     msg: 'Password length should be >6 & have at least one lowercase, uppercase & special character'}
             }
         },
-        company_name:{
-            type: DataTypes.STRING,
-            unique:true,
-            allowNull: false,
-        },
-        company_address:{
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        createdAt: {
-            type: DataTypes.DATE,
-            get() {
-              return this.getDataValue('createdAt').toISOString().split('T')[0];
-            }
-          }
     },{
         freezeTableName: true // This prevents Sequelize from pluralizing the table name
     });
@@ -89,10 +74,6 @@ module.exports = (sequelizeInstance, DataTypes)=>{
         const salt = await bcrypt.genSalt(9)
         this.password = await bcrypt.hash(this.password, salt)
     }
-    
-    // User.associate = (models) =>{
-    //     User.hasOne(models.Invoice, { as: 'invoice', foreignKey: 'Invoiceid'})
-    // }
 
     return User;
 }

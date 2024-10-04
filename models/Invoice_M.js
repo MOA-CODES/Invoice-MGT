@@ -21,13 +21,15 @@ module.exports = (sequelizeInstance, DataTypes)=>{
             type: DataTypes.STRING,
             allowNull: false,
         },
+        createdAt: {
+            type: DataTypes.DATE,
+            get() {
+              return this.getDataValue('createdAt').toISOString().split('T')[0];
+            }
+          }
     },{
         freezeTableName: true // This prevents Sequelize from pluralizing the table name
     })
     
-    // Invoice.associate = (models) =>{
-    //     Invoice.belongsTo(models.User, {as: 'billTo', foreignKey: 'Userid'})
-    // }
-
     return Invoice;
 }
