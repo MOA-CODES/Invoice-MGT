@@ -1,19 +1,14 @@
 const Joi = require('joi');
 
-const createInvoice_V = {
+const registerCompany_V = {
     body: Joi.object().keys({
-        services: Joi.array().required().items(
-            Joi.alternatives().try(
-            Joi.string().guid({ version: 'uuidv4' }),
-            Joi.string().valid('general'))
-        ),
-        Userid: Joi.alternatives().try(
-            Joi.string().guid({ version: 'uuidv4' }),
-            Joi.string().valid('general')).required(),
+        name: Joi.string().required(),
+        email: Joi.string().required().email(),
+        address: Joi.string().required()
     })
 }
 
-const getInvoice_V = {
+const getCompany_V = {
     query: Joi.object().keys({
         id: Joi.alternatives().try(
             Joi.string().guid({ version: 'uuidv4' }),
@@ -23,11 +18,11 @@ const getInvoice_V = {
     }).or('id', 'name', 'email')
 }
 
-const getInvoices_V = {
+const getCompanies_V = {
     query: Joi.object().keys({
         page: Joi.number().optional(),
         limit: Joi.number().optional(),
     })
 }
 
-module.exports = {createInvoice_V, getInvoice_V,getInvoices_V}
+module.exports = {registerCompany_V, getCompany_V,getCompanies_V}

@@ -1,6 +1,6 @@
 const date = new Date()
 
-const Template_MOA =(customerNumber)=>{
+const T_MOA =(customerNumber)=>{
     let invoiceIndex;
 
     const start = "M"+(customerNumber.toString()).padStart(3,'0');
@@ -20,7 +20,7 @@ const Template_MOA =(customerNumber)=>{
     return invoiceIndex
 }
 
-const Template_1 = (customerNumber, companyName)=>{
+const T_1 = (customerNumber, companyName)=>{
     companyName = companyName.toString()
 
     let invoiceIndex;
@@ -44,7 +44,7 @@ const Template_1 = (customerNumber, companyName)=>{
     return invoiceIndex;
 }
 
-module.exports = {Template_MOA, Template_1}
+module.exports = {T_MOA, T_1}
 
 
 

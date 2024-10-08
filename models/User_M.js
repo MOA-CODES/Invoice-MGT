@@ -63,14 +63,18 @@ module.exports = (sequelizeInstance, DataTypes)=>{
     })
     
     User.prototype.createJWT = async function(){
-        const token = await jwt.sign({email:this.email, role:this.role,company_name:this.company_name},process.env.AUTH_KEY,{expiresIn:process.env.TOKEN_TIME})
+        const token = await jwt.sign({email:this.email, role:this.role},process.env.AUTH_KEY,{expiresIn:process.env.TOKEN_TIME})
+
+        return token
     } 
     
-    User.prototype.comparePSW = async (userPSW,options)=>{
+    User.prototype.comparePSW = async function(userPSW,options){ //you can't use arrow fucntions for prototype
         const compare = await bcrypt.compare(userPSW, this.password)
+        console.log(compare)
+        return compare
     }
     
-    User.prototype.updatePSW = async ()=>{
+    User.prototype.updatePSW = async function(){
         const salt = await bcrypt.genSalt(9)
         this.password = await bcrypt.hash(this.password, salt)
     }
