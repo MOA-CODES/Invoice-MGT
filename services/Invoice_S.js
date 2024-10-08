@@ -1,6 +1,6 @@
 const {StatusCodes} = require('http-status-codes')
-const services = require('../services')
-const customerNum = require('../services').customerNumber
+const customerNumber = require('./customerNumber')
+const template = require('./Template')
 const db = require('../models')
 
 const createInvoice_S = async (data)=>{
@@ -23,17 +23,17 @@ const createInvoice_S = async (data)=>{
             total = total + Number(check2.total)
         }
 
-        const cNumber = await customerNum() 
+        const cNumber = await customerNumber()
 
-        console.log(cNumber, "==================================================================================================")
+        console.log(cNumber,"====================================================================================")
 
-        const genCiid = services.Template_S.Template_MOA(cNumber)
+        const genCiid = template.t_moa(cNumber)
 
         data.ciid = genCiid
 
         data.total = total
 
-        const Invoice = await db.Invoice.create(createObject)
+        const Invoice = await db.Invoice.create(data)
 
         return{data:Invoice, message:"Invoice Created", code: StatusCodes.OK }
 

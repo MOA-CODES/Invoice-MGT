@@ -21,12 +21,22 @@ module.exports = (sequelizeInstance, DataTypes)=>{
             type: DataTypes.STRING,
             allowNull: false,
         },
+        // createdAt: {
+        //     type: DataTypes.DATE,
+        //     get() {
+        //       return this.getDataValue('createdAt').toISOString().split('T')[0];
+        //     }
+        //   },
         createdAt: {
-            type: DataTypes.DATE,
-            get() {
-              return this.getDataValue('createdAt').toISOString().split('T')[0];
-            }
-          }
+            type: DataTypes.DATEONLY, // Use DATEONLY to store just the date
+            allowNull: false,
+            defaultValue: DataTypes.NOW, // Auto-set to the current date
+          },
+        updatedAt: {
+            type: DataTypes.DATEONLY, // Use DATEONLY here as well if desired
+            allowNull: false,
+            defaultValue: DataTypes.NOW,
+          },
     },{
         freezeTableName: true // This prevents Sequelize from pluralizing the table name
     })

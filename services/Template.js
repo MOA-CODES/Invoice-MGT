@@ -1,6 +1,6 @@
 const date = new Date()
 
-const T_MOA =(customerNumber)=>{
+const t_moa =(customerNumber)=>{
     let invoiceIndex;
 
     const start = "M"+(customerNumber.toString()).padStart(3,'0');
@@ -20,7 +20,7 @@ const T_MOA =(customerNumber)=>{
     return invoiceIndex
 }
 
-const T_1 = (customerNumber, companyName)=>{
+const t_1 = (customerNumber, companyName)=>{
     companyName = companyName.toString()
 
     let invoiceIndex;
@@ -44,7 +44,7 @@ const T_1 = (customerNumber, companyName)=>{
     return invoiceIndex;
 }
 
-module.exports = {T_MOA, T_1}
+module.exports = {t_moa, t_1}
 
 
 
